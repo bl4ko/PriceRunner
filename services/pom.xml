@@ -24,7 +24,7 @@
 
         <dependency>
             <groupId>si.fri.prpo.skupina7</groupId>
-            <artifactId>entitete</artifactId>
+            <artifactId>entities</artifactId>
         </dependency>
     </dependencies>
 
