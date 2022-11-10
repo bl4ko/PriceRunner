@@ -46,6 +46,19 @@
             <dependency>
                 <groupId>si.fri.prpo.skupina7</groupId>
                 <artifactId>api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>si.fri.prpo.skupina7</groupId>
+                <artifactId>services</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>si.fri.prpo.skupina7</groupId>
+                <artifactId>entities</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
