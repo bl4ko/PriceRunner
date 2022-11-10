@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>si.fri.prpo.skupina7</groupId>
+    <artifactId>PriceRunner</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>api</module>
+        <module>services</module>
+        <module>entities</module>
+    </modules>
+
+    <name>Price comparison tool</name>
+    <description>Tool for comparing prices from most common online ecommerce websites.</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <kumuluzee.version>4.1.0</kumuluzee.version>
+        <postgresql.version>42.5.0</postgresql.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.kumuluz.ee</groupId>
+                <artifactId>kumuluzee-bom</artifactId>
+                <version>${kumuluzee.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>si.fri.prpo.skupina7</groupId>
+                <artifactId>api</artifactId>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>
