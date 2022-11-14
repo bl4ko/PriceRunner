@@ -38,16 +38,4 @@ public class Cart {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
-    }
-    public String getSurname() {return this.surname;}
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void getSurname(String surname) {
-        this.surname = surname;
-    }
-
 }

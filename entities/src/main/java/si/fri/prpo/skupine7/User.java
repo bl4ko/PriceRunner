@@ -24,7 +24,8 @@ public class User {
 
 
     // Adds additional intermediate table
-    @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
+    @OneToOne()
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
     public Integer getId() {
