@@ -1,14 +1,13 @@
 package si.fri.prpo.skupine7;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity(name = "user")
 @NamedQueries(value =
         {
                 @NamedQuery(name = "User.getAll", query = "SELECT u FROM user u"),
-                @NamedQuery(name = "User.getById", query = "SELECT user FROM user WHERE user.id = ?1"),
-                @NamedQuery(name = "User.deleteById", query = "DELETE FROM user WHERE user.id = ?1"),
+                @NamedQuery(name = "User.getById", query = "SELECT u FROM user u WHERE u.id = ?1"),
+                @NamedQuery(name = "User.deleteById", query = "DELETE FROM user u WHERE u.id = ?1"),
                 @NamedQuery(name = "User.deleteAll", query = "DELETE FROM user")
         })
 
@@ -17,17 +16,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name")
     private String name;
-    @Column(name = "surname")
     private String surname;
-
-    @Column(name = "username")
     private String username;
-
-    @Column(name = "email")
     private String email;
-
 
     // Adds additional intermediate table
     @OneToOne()
