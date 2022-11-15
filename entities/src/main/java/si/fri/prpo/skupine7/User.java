@@ -22,6 +22,12 @@ public class User {
     @Column(name = "surname")
     private String surname;
 
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "email")
+    private String email;
+
 
     // Adds additional intermediate table
     @OneToOne()
@@ -36,16 +42,31 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return this.name;
-    }
-    public String getSurname() {return this.surname;}
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void getSurname(String surname) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 }
