@@ -1,4 +1,4 @@
-package si.fri.prpo.skupine7;
+package si.fri.prpo.skupina7;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;

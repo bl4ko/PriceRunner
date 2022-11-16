@@ -3,11 +3,11 @@
     <persistence-unit name="priceRunner" transaction-type="JTA">
         <jta-data-source>jdbc/priceRunner</jta-data-source>
 
+        <class>si.fri.prpo.skupina7.User</class>
         <class>si.fri.prpo.skupina7.Category</class>
-        <class>si.fri.prpo.skupina7.Item</class>
+        <class>si.fri.prpo.skupina7.Product</class>
         <class>si.fri.prpo.skupina7.Store</class>
         <class>si.fri.prpo.skupina7.Cart</class>
-        <class>si.fri.prpo.skupina7.User</class>
 
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
