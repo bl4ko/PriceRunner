@@ -17,12 +17,9 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-//    @Column(name = "name")
-//    private String name;
-
     // Adds additional intermediate table
     @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
-    private User user;
+    private Customer customer;
 
     @ManyToMany(mappedBy = "carts", cascade = CascadeType.ALL)
     private List<Product> products;

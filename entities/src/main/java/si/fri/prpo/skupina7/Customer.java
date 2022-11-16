@@ -2,16 +2,16 @@ package si.fri.prpo.skupina7;
 
 import javax.persistence.*;
 
-@Entity(name = "user")
+@Entity(name = "customer")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "User.getAll", query = "SELECT u FROM user u"),
-                @NamedQuery(name = "User.getById", query = "SELECT u FROM user u WHERE u.id = ?1"),
-                @NamedQuery(name = "User.deleteById", query = "DELETE FROM user u WHERE u.id = ?1"),
-                @NamedQuery(name = "User.deleteAll", query = "DELETE FROM user")
+                @NamedQuery(name = "Customer.getAll", query = "SELECT u FROM customer u"),
+                @NamedQuery(name = "Customer.getById", query = "SELECT u FROM customer u WHERE u.id = ?1"),
+                @NamedQuery(name = "Customer.deleteById", query = "DELETE FROM customer u WHERE u.id = ?1"),
+                @NamedQuery(name = "Customer.deleteAll", query = "DELETE FROM customer")
         })
 
-public class User {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -34,8 +34,20 @@ public class User {
         this.id = id;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getSurname() {
+        return this.surname;
     }
 
     public String getUsername() {
