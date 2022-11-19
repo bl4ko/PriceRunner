@@ -18,10 +18,18 @@ public class JPAServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.getWriter().println("Hello from JPA Servlet, using named query for all products:");
         List<Product> products = productBean.getProducts();
 
          // Display products
          for (Product product : products) {
+            resp.getWriter().println(product.getName());
+         }
+
+         resp.getWriter().println("Using Criteria API for all products:");
+         List<Product> productsCriteria = productBean.getProductsCriteria();
+
+         for (Product product : productsCriteria) {
             resp.getWriter().println(product.getName());
          }
     }
