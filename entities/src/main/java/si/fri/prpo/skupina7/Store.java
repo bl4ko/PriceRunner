@@ -1,4 +1,4 @@
-package si.fri.prpo.skupine7;
+package si.fri.prpo.skupina7;
 
 import javax.persistence.*;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.List;
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Store.getAll", query = "SELECT s FROM store s"),
-                @NamedQuery(name = "Store.getById", query = "SELECT store FROM store WHERE store.id = ?1"),
-                @NamedQuery(name = "Store.deleteById", query = "DELETE FROM store WHERE store.id = ?1"),
+                @NamedQuery(name = "Store.getById", query = "SELECT s FROM store s WHERE s.id = ?1"),
+                @NamedQuery(name = "Store.deleteById", query = "DELETE FROM store s WHERE s.id = ?1"),
                 @NamedQuery(name = "Store.deleteAll", query = "DELETE FROM store")
         })
 
@@ -21,7 +21,7 @@ public class Store {
     private String name;
 
     // Adds additional intermediate table
-    @ManyToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "stores", cascade = CascadeType.ALL)
     private List<Product> products;
 
     public Integer getId() {

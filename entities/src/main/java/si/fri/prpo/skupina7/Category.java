@@ -1,4 +1,4 @@
-package si.fri.prpo.skupine7;
+package si.fri.prpo.skupina7;
 
 import javax.persistence.*;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 @Entity(name = "category")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "Category.getAll", query = "SELECT o FROM category o"),
-                @NamedQuery(name = "Category.getById", query = "SELECT category FROM category WHERE category.id = ?1"),
-                @NamedQuery(name = "Category.deleteById", query = "DELETE FROM category WHERE category.id = ?1"),
+                @NamedQuery(name = "Category.getAll", query = "SELECT c FROM category c"),
+                @NamedQuery(name = "Category.getById", query = "SELECT c FROM category c WHERE c.id = ?1"),
+                @NamedQuery(name = "Category.deleteById", query = "DELETE FROM category c WHERE c.id = ?1"),
                 @NamedQuery(name = "Category.deleteAll", query = "DELETE FROM category")
         })
 

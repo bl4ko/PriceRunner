@@ -1,4 +1,4 @@
-package si.fri.prpo.skupine7;
+package si.fri.prpo.skupina7;
 
 import javax.persistence.*;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.List;
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Cart.getAll", query = "SELECT c FROM cart c"),
-                @NamedQuery(name = "Cart.getById", query = "SELECT cart FROM user WHERE cart.id = ?1"),
-                @NamedQuery(name = "Cart.deleteById", query = "DELETE FROM cart WHERE cart.id = ?1"),
+                @NamedQuery(name = "Cart.getById", query = "SELECT c FROM cart c WHERE c.id = ?1"),
+                @NamedQuery(name = "Cart.deleteById", query = "DELETE FROM cart c WHERE c.id = ?1"),
                 @NamedQuery(name = "Cart.deleteAll", query = "DELETE FROM cart")
         })
 
@@ -17,18 +17,12 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-//    @Column(name = "name")
-//    private String name;
-
     // Adds additional intermediate table
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private User user;
+    @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
+    private Customer customer;
 
-    @ManyToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "carts", cascade = CascadeType.ALL)
     private List<Product> products;
-
-//    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
-//    private Store store;
 
     public Integer getId() {
         return this.id;

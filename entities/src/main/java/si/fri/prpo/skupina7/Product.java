@@ -1,13 +1,14 @@
-package si.fri.prpo.skupine7;
+package si.fri.prpo.skupina7;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "product")
 @NamedQueries(value =
         {
                 @NamedQuery(name = "Product.getAll", query = "SELECT p FROM product p"),
                 @NamedQuery(name = "Product.getById", query = "SELECT p FROM product p WHERE p.id = ?1"),
-                @NamedQuery(name = "Product.deleteById", query = "DELETE FROM product WHERE product.id = ?1"),
+                @NamedQuery(name = "Product.deleteById", query = "DELETE FROM product p WHERE p.id = ?1"),
                 @NamedQuery(name = "Product.deleteAll", query = "DELETE FROM product")
         })
 public class Product {
@@ -26,6 +27,14 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @ManyToMany
+    @JoinColumn(name = "cart_id")
+    private List<Cart> carts;
+
+    @ManyToMany
+    @JoinColumn(name = "store_id")
+    private List<Store> stores;
 
 
     // getter and setter methods
