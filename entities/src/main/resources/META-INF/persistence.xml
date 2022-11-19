@@ -9,6 +9,7 @@
         <class>si.fri.prpo.skupina7.Cart</class>
         <class>si.fri.prpo.skupina7.Customer</class>
 
+
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
             <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
