@@ -65,4 +65,12 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Cart getCart() {
+        return this.cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 }
