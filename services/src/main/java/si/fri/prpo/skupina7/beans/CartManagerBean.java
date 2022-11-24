@@ -87,6 +87,15 @@ public class CartManagerBean {
             return null;
         }
 
-        return cart;
+        List<Product> products = cart.getProducts();
+        for (Product product : products) {
+            if (product.getName().equals(productDto.getName())) {
+                products.remove(product);
+                cart.setProducts(products);
+                return cartBean.updateCart(cartId, cart).getProducts().get(cart.getProducts().size() - 1);
+            }
+        }
+
+        return null;
     }
 }
