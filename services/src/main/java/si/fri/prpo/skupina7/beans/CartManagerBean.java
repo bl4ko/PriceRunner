@@ -79,7 +79,7 @@ public class CartManagerBean {
 
     @Transactional
     public Product removeProductFromCart(Integer cartId, ProductDto productDto) {
-
+        /* ΤODO */
         Cart cart = cartBean.getCart(cartId);
 
         if (cart == null) {
@@ -87,9 +87,6 @@ public class CartManagerBean {
             return null;
         }
 
-
-
-
-        return product;
+        return cart;
     }
 }
