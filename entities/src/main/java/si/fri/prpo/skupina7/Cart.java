@@ -71,4 +71,11 @@ public class Cart {
         this.customer = customer;
     }
 
+    public List<Product> getProducts() {
+        return this.products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 }

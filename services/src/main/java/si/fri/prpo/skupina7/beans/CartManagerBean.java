@@ -11,6 +11,7 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class CartManagerBean {
@@ -69,9 +70,26 @@ public class CartManagerBean {
         product.setName(productDto.getName());
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
+        List<Product> products = cart.getProducts();
+        products.add(product);
+        cart.setProducts(products);
+
+        return cartBean.updateCart(cartId, cart).getProducts().get(cart.getProducts().size() - 1);
+    }
+
+    @Transactional
+    public Product removeProductFromCart(Integer cartId, ProductDto productDto) {
+
+        Cart cart = cartBean.getCart(cartId);
+
+        if (cart == null) {
+            log.info("Cart with id " + cartId + " does not exist");
+            return null;
+        }
+
+
 
 
         return product;
     }
-
 }

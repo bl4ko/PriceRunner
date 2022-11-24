@@ -9,18 +9,43 @@ public class ProductDto {
     private Integer price;
     private Category category;
 
-    public Integr getProductId() {return productId};
-    public void setProductId(Integer productId) { this.productId = productId;}
+    public Integer getProductId() {
+        return productId;
+    }
 
-    public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
 
-    public String getDescription() {return description;}
-    public void setDescription(String description) {this.description = description;}
+    public String getName() {
+        return name;
+    }
 
-    public Integer getPrice() {return price;}
-    public void setPrice(Integer price) {this.price = price;}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public Category getCategory() {return category;}
-    public void setCategory(Category category) {this.category = category;}
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
