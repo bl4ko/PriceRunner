@@ -1,6 +1,8 @@
 package si.fri.prpo.skupina7;
 
 
+import si.fri.prpo.skupina7.beans.ProductBean;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,8 +28,8 @@ public class JPAServlet extends HttpServlet {
             resp.getWriter().println(product.getName());
          }
 
-         resp.getWriter().println("Using Criteria API for all products:");
-         List<Product> productsCriteria = productBean.getProductsCriteria();
+         resp.getWriter().println("\nUsing Criteria API for all products:");
+         List<Product> productsCriteria = productBean.getProductsCriteriaAPI();
 
          for (Product product : productsCriteria) {
             resp.getWriter().println(product.getName());
