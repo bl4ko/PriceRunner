@@ -15,6 +15,7 @@ public class NoteCallsInterceptor {
 
     @AroundInvoke
     public Object NoteCalls(InvocationContext context) throws Exception {
-        
+        /* TODO */
+        return null;
     }
 }
