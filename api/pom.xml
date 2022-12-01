@@ -45,6 +45,18 @@
         </dependency>
 
         <dependency>
+            <groupId>com.kumuluz.ee.openapi</groupId>
+            <artifactId>kumuluzee-openapi</artifactId>
+            <version>${kumuluzee-openapi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kumuluz.ee.openapi</groupId>
+            <artifactId>kumuluzee-openapi-ui</artifactId>
+            <version>${kumuluzee-openapi.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>si.fri.prpo.skupina7</groupId>
             <artifactId>services</artifactId>
         </dependency>

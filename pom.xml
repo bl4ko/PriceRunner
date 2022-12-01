@@ -25,6 +25,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <kumuluzee.version>4.1.0</kumuluzee.version>
         <kumuluzee-rest.version>1.5.1</kumuluzee-rest.version>
+        <kumuluzee-openapi.version>1.0.1</kumuluzee-openapi.version>
         <postgresql.version>42.5.0</postgresql.version>
     </properties>
 
@@ -42,6 +43,12 @@
                 <groupId>com.kumuluz.ee.rest</groupId>
                 <artifactId>kumuluzee-rest-core</artifactId>
                 <version>${kumuluzee-rest.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kumuluz.ee.openapi</groupId>
+                <artifactId>kumuluzee-openapi</artifactId>
+                <version>${kumuluzee-openapi.version}</version>
             </dependency>
 
             <dependency>
