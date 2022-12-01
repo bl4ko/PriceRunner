@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina7;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 @Entity(name = "customer")
@@ -21,7 +22,7 @@ public class Customer {
     private String username;
     private String email;
 
-    // Adds additional intermediate table
+    @JsonbTransient
     @OneToOne()
     @JoinColumn(name = "cart_id")
     private Cart cart;
@@ -42,12 +43,12 @@ public class Customer {
         this.name = name;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public String getSurname() {
         return this.surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getUsername() {

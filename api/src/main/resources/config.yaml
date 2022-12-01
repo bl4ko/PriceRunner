@@ -5,3 +5,11 @@ kumuluzee:
       username: postgres
       password: postgres
       max-pool-size: 20
+    # https://github.com/kumuluz/kumuluzee-openapi#accessing-api-specification
+  openapi-mp:
+    enabled: true
+    servlet:
+      mapping: /openapi
+    ui:
+      enabled: true
+      mapping: /openapi/ui

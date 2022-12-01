@@ -37,6 +37,9 @@ public class CustomerBean {
         return Customers;
     }
 
+    public int getCustomerCount() {
+        return em.createNamedQuery("Customer.getAll").getResultList().size();
+    }
 
     @Transactional
     public Customer createCustomer(Customer Customer) {
