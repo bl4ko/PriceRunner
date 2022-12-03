@@ -39,6 +39,11 @@ public class ProductBean {
         return products;
     }
 
+    public int getProductCount() {
+        return em.createNamedQuery("Product.getAll").getResultList().size();
+    }
+
+
     public List<Product> getProductsCriteriaAPI() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Product> cq = cb.createQuery(Product.class);
