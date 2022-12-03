@@ -37,6 +37,10 @@ public class StoreBean {
         return stores;
     }
 
+    public int getStoreCount() {
+        return em.createNamedQuery("Customer.getAll").getResultList().size();
+    }
+
 
     @Transactional
     public Store createStore(Store store) {
