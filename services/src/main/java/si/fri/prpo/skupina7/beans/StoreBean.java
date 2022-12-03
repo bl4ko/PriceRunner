@@ -38,7 +38,7 @@ public class StoreBean {
     }
 
     public int getStoreCount() {
-        return em.createNamedQuery("Customer.getAll").getResultList().size();
+        return em.createNamedQuery("Store.getAll").getResultList().size();
     }
 
 
