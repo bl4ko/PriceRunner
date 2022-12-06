@@ -5,6 +5,7 @@ import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.fri.prpo.skupina7.Category;
@@ -63,7 +64,7 @@ public class CategorySource {
             )})
     @GET
     @Path("{id}")
-    public Response getCategory(Integer id) {
+    public Response getCategory(@Parameter(description = "Category ID", required = true) @PathParam("id") Integer id) {
         Category category = categoryBean.getCategory(id);
         if (category == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -83,7 +84,7 @@ public class CategorySource {
             )})
     @DELETE
     @Path("{id}")
-    public Response deleteCategory(Integer id) {
+    public Response deleteCategory(@Parameter(description = "Category ID", required = true) @PathParam("id") Integer id) {
         Category category = categoryBean.getCategory(id);
         if (category == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
