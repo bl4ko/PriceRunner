@@ -32,11 +32,14 @@ public class CategoryBean {
         log.info("Destroying an instance of CategoryBean[" + this.id + "]");
     }
 
-    public List<Category> getCategorys() {
+    public List<Category> getCategories() {
         List<Category> categories = em.createNamedQuery("Category.getAll").getResultList();
         return categories;
     }
 
+    public int getCategoryCount() {
+        return em.createNamedQuery("Category.getAll").getResultList().size();
+    }
 
     @Transactional
     public Category createCategory(Category category) {
