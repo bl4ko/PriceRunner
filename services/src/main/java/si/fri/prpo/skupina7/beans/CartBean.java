@@ -37,6 +37,9 @@ public class CartBean {
         return Carts;
     }
 
+    public int getCartCount() {
+        return em.createNamedQuery("Cart.getAll").getResultList().size();
+    }
 
     @Transactional
     public Cart createCart(Cart cart) {
