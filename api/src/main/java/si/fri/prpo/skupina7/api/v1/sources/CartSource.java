@@ -5,6 +5,7 @@ import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import si.fri.prpo.skupina7.Cart;
@@ -12,10 +13,7 @@ import si.fri.prpo.skupina7.beans.CartBean;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -64,7 +62,7 @@ public class CartSource {
             )})
     @GET
     @Path("{id}")
-    public Response getCart(@Operation(description = "Cart ID", summary = "Id of the cart") @PathParam("id") Integer id) {
+    public Response getCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id) {
         Cart cart = cartBean.getCart(id);
 
         if (cart == null) {
@@ -86,7 +84,7 @@ public class CartSource {
             )})
     @DELETE
     @Path("{id}")
-    public Response deleteCart(@Operation(description = "Cart ID", summary = "Id of the cart") @PathParam("id") Integer id) {
+    public Response deleteCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id) {
         Cart cart = cartBean.getCart(id);
 
         if (cart == null) {
