@@ -98,5 +98,43 @@ public class CartSource {
         return Response.ok().build();
     }
 
+    @Operation(description = "Creates new cart", summary = "Create new cart")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "201",
+                    description = "Cart created"
+            )})
+    @POST
+    public Response createCart(Cart cart) {
+        cartBean.createCart(cart);
+
+        return Response
+                .created(uriInfo.getAbsolutePathBuilder().path(cart.getId().toString()).build())
+                .build();
+    }
+
+    @Operation(description = "Updates cart with given id", summary = "Update cart with given id")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Cart updated"
+            ),
+            @APIResponse(
+                    responseCode = "404",
+                    description = "Cart not found"
+            )})
+    @PUT
+    @Path("{id}")
+    public Response updateCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id, Cart cart) {
+        Cart existingCart = cartBean.getCart(id);
+
+        if (existingCart == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        cartBean.updateCart(id, cart);
+
+        return Response.ok().build();
+    }
 
 }

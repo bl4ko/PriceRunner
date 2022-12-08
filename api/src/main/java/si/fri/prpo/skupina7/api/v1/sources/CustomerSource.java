@@ -94,4 +94,51 @@ public class CustomerSource {
         customerBean.deleteCustomer(id);
         return Response.ok().build();
     }
+
+    @Operation(description = "Creates a new customer", summary = "Create new customer")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "201",
+                    description = "Customer created"
+            ),
+            @APIResponse(
+                    responseCode = "400",
+                    description = "Invalid input"
+            )})
+    @POST
+    public Response createCustomer(@Parameter(description = "Customer to be created", required = true) Customer customer) {
+        if (customer == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        customerBean.createCustomer(customer);
+        return Response.status(Response.Status.CREATED).build();
+    }
+
+    @Operation(description = "Update a customer with given id", summary = "Update customer with given id")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Customer updated"
+            ),
+            @APIResponse(
+                    responseCode = "400",
+                    description = "Invalid input"
+            ),
+            @APIResponse(
+                    responseCode = "404",
+                    description = "Customer not found"
+            )})
+    @PUT
+    @Path("{id}")
+    public Response updateCustomer(@Parameter(description = "Customer ID", required = true) @PathParam("id") Integer id, @Parameter(description = "Customer to be updated", required = true) Customer customer) {
+        if (customer == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        Customer c = customerBean.getCustomer(id);
+        if (c == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        customerBean.updateCustomer(id, customer);
+        return Response.ok().build();
+    }
 }

@@ -98,4 +98,69 @@ public class StoreSource {
 
         return Response.noContent().build();
     }
+
+    @Operation(description = "Create a new store", summary = "Create a new store")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "201",
+                    description = "Store created",
+                    content = @Content(schema = @Schema(implementation = Store.class))
+            ),
+            @APIResponse(
+                    responseCode = "400",
+                    description = "Invalid input"
+            )
+    })
+    @POST
+    public Response createStore(@Parameter(description = "Store to be created", required = true) Store store) {
+        if (store == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        store = storeBean.createStore(store);
+
+        if (store.getId() != null) {
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(store)
+                    .build();
+        } else {
+            return Response.status(Response.Status.CONFLICT).entity(store).build();
+        }
+    }
+
+    @Operation(description = "Update a store with given id", summary = "Update store with given id")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Store updated",
+                    content = @Content(schema = @Schema(implementation = Store.class))
+            ),
+            @APIResponse(
+                    responseCode = "400",
+                    description = "Invalid input"
+            ),
+            @APIResponse(
+                    responseCode = "404",
+                    description = "Store not found"
+            )
+    })
+    @PUT
+    @Path("{id}")
+    public Response updateStore(@Parameter(description = "Store ID", required = true) @PathParam("id") Integer id, @Parameter(description = "Store to be updated", required = true) Store store) {
+        if (store == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        store = storeBean.updateStore(id, store);
+
+        if (store == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        } else {
+            if (store.getId() != null)
+                return Response.ok(store).build();
+            else
+                return Response.status(Response.Status.NOT_MODIFIED).build();
+        }
+    }
 }

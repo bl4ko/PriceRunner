@@ -98,4 +98,68 @@ public class ProductSource {
 
         return Response.noContent().build();
     }
+
+    @Operation(description = "Create a new Product", summary = "Create a new Product")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "201",
+                    description = "Product created",
+                    content = @Content(schema = @Schema(implementation = Product.class))
+            ),
+            @APIResponse(
+                    responseCode = "400",
+                    description = "Invalid input"
+            )
+    })
+    @POST
+    public Response createProduct(@Parameter(description = "Product to be created", required = true) Product product) {
+        if (product.getName() == null || product.getName().isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        product = productBean.createProduct(product);
+
+        if (product.getId() != null) {
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(product)
+                    .build();
+        } else {
+            return Response.status(Response.Status.CONFLICT).entity(product).build();
+        }
+    }
+
+    @Operation(description = "Update a Product with given id", summary = "Update Product with given id")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Product updated",
+                    content = @Content(schema = @Schema(implementation = Product.class))
+            ),
+            @APIResponse(
+                    responseCode = "400",
+                    description = "Invalid input"
+            ),
+            @APIResponse(
+                    responseCode = "404",
+                    description = "Product not found"
+            )
+    })
+    @PUT
+    @Path("{id}")
+    public Response updateProduct(@Parameter(description = "Product ID", required = true) @PathParam("id") Integer id, @Parameter(description = "Product to be updated", required = true) Product product) {
+        Product p = productBean.getProduct(id);
+
+        if (p == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        if (product.getName() == null || product.getName().isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        product = productBean.updateProduct(id, product);
+
+        return Response.ok(product).build();
+    }
 }
