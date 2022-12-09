@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
 import si.fri.prpo.skupina7.Store;
+import si.fri.prpo.skupina7.annotations.NoteCalls;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -32,6 +33,7 @@ public class StoreBean {
         log.info("Destroying an instance of StoreBean[" + this.id + "]");
     }
 
+    @NoteCalls
     public List<Store> getStores() {
         List<Store> stores = em.createNamedQuery("Store.getAll").getResultList();
         return stores;
@@ -43,6 +45,7 @@ public class StoreBean {
 
 
     @Transactional
+    @NoteCalls
     public Store createStore(Store store) {
         if (store != null) {
             em.persist(store);
@@ -51,11 +54,13 @@ public class StoreBean {
     }
 
 
+    @NoteCalls
     public Store getStore(Integer id) {
         return em.find(Store.class, id);
     }
 
     @Transactional
+    @NoteCalls
     public Store updateStore(Integer storeId, Store store) {
         Store p = em.find(Store.class, storeId);
         store.setId(p.getId());
@@ -64,6 +69,7 @@ public class StoreBean {
     }
 
     @Transactional
+    @NoteCalls
     public boolean deleteStore(Integer id) {
         Store store = em.find(Store.class, id);
         if (store != null) {

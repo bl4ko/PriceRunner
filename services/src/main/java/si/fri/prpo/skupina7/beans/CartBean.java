@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
 import si.fri.prpo.skupina7.Cart;
+import si.fri.prpo.skupina7.annotations.NoteCalls;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -32,6 +33,7 @@ public class CartBean {
         log.info("Destroying an instance of CartBean[" + this.id + "]");
     }
 
+    @NoteCalls
     public List<Cart> getCarts() {
         List<Cart> Carts = em.createNamedQuery("Cart.getAll").getResultList();
         return Carts;
@@ -42,6 +44,7 @@ public class CartBean {
     }
 
     @Transactional
+    @NoteCalls
     public Cart createCart(Cart cart) {
         if (cart != null) {
             em.persist(cart);
@@ -50,11 +53,13 @@ public class CartBean {
     }
 
 
+    @NoteCalls
     public Cart getCart(Integer id) {
         return em.find(Cart.class, id);
     }
 
     @Transactional
+    @NoteCalls
     public Cart updateCart(Integer CartId, Cart Cart) {
         Cart p = em.find(Cart.class, CartId);
         Cart.setId(p.getId());
@@ -63,6 +68,7 @@ public class CartBean {
     }
 
     @Transactional
+    @NoteCalls
     public boolean deleteCart(Integer id) {
         Cart cart = em.find(Cart.class, id);
         if (cart != null) {

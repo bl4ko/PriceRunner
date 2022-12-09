@@ -56,6 +56,7 @@ public class ProductBean {
 
 
     @Transactional
+    @NoteCalls
     public Product createProduct(Product product) {
         if (product != null) {
             em.persist(product);
@@ -64,12 +65,14 @@ public class ProductBean {
     }
 
 
+    @NoteCalls
     public Product getProduct(Integer id) {
         return em.find(Product.class, id);
     }
 
 
     @Transactional
+    @NoteCalls
     public Product updateProduct(Integer productId, Product product) {
         Product p = em.find(Product.class, productId);
         product.setId(p.getId());
@@ -79,6 +82,7 @@ public class ProductBean {
 
 
     @Transactional
+    @NoteCalls
     public boolean deleteProduct(Integer id) {
         Product product = em.find(Product.class, id);
         if (product != null) {

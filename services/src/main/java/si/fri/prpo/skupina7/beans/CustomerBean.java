@@ -44,6 +44,7 @@ public class CustomerBean {
     }
 
     @Transactional
+    @NoteCalls
     public Customer createCustomer(Customer Customer) {
         if (Customer != null) {
             em.persist(Customer);
@@ -52,11 +53,13 @@ public class CustomerBean {
     }
 
 
+    @NoteCalls
     public Customer getCustomer(Integer id) {
         return em.find(Customer.class, id);
     }
 
     @Transactional
+    @NoteCalls
     public Customer updateCustomer(Integer CustomerId, Customer Customer) {
         Customer p = em.find(Customer.class, CustomerId);
         Customer.setId(p.getId());
@@ -65,6 +68,7 @@ public class CustomerBean {
     }
 
     @Transactional
+    @NoteCalls
     public boolean deleteCustomer(Integer id) {
         Customer Customer = em.find(Customer.class, id);
         if (Customer != null) {

@@ -3,6 +3,7 @@ package si.fri.prpo.skupina7.beans;
 import si.fri.prpo.skupina7.Cart;
 import si.fri.prpo.skupina7.Customer;
 import si.fri.prpo.skupina7.Product;
+import si.fri.prpo.skupina7.annotations.NoteCalls;
 import si.fri.prpo.skupina7.dtos.CartDto;
 import si.fri.prpo.skupina7.dtos.ProductDto;
 
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
 
 public class CartManagerBean {
 
-    private Logger log = Logger.getLogger(CartManagerBean.class.getName());
+    private final Logger log = Logger.getLogger(CartManagerBean.class.getName());
 
     @Inject
     private CustomerBean customerBean;
@@ -38,6 +39,7 @@ public class CartManagerBean {
     }
 
     @Transactional
+    @NoteCalls
     public Cart createCart(CartDto cartDto) {
         Customer customer = customerBean.getCustomer(cartDto.getCustomerId());
 
@@ -57,6 +59,7 @@ public class CartManagerBean {
     }
 
     @Transactional
+    @NoteCalls
     public Product addProductToCart(Integer cartId, ProductDto productDto) {
 
         Cart cart = cartBean.getCart(cartId);
@@ -78,6 +81,7 @@ public class CartManagerBean {
     }
 
     @Transactional
+    @NoteCalls
     public Product removeProductFromCart(Integer cartId, ProductDto productDto) {
         /* ΤODO */
         Cart cart = cartBean.getCart(cartId);
