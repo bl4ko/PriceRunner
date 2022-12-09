@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
 import si.fri.prpo.skupina7.Customer;
+import si.fri.prpo.skupina7.annotations.NoteCalls;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -32,6 +33,7 @@ public class CustomerBean {
         log.info("Destroying an instance of CustomerBean[" + this.id + "]");
     }
 
+    @NoteCalls
     public List<Customer> getCustomers() {
         List<Customer> Customers = em.createNamedQuery("Customer.getAll").getResultList();
         return Customers;

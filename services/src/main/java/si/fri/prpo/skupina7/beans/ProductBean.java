@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
 import si.fri.prpo.skupina7.Product;
+import si.fri.prpo.skupina7.annotations.NoteCalls;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -34,6 +35,7 @@ public class ProductBean {
         log.info("Destroying an instance of ProductBean[" + this.id + "]");
     }
 
+    @NoteCalls
     public List<Product> getProducts() {
         List<Product> products = em.createNamedQuery("Product.getAll").getResultList();
         return products;
