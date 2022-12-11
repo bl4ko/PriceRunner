@@ -1,6 +1,7 @@
-package si.fri.prpo.skupina7;
+package si.fri.prpo.skupina7.servlets;
 
 
+import si.fri.prpo.skupina7.Product;
 import si.fri.prpo.skupina7.beans.ProductBean;
 
 import javax.inject.Inject;
@@ -23,16 +24,16 @@ public class JPAServlet extends HttpServlet {
         resp.getWriter().println("Hello from JPA Servlet, using named query for all products:");
         List<Product> products = productBean.getProducts();
 
-         // Display products
-         for (Product product : products) {
+        // Display products
+        for (Product product : products) {
             resp.getWriter().println(product.getName());
-         }
+        }
 
-         resp.getWriter().println("\nUsing Criteria API for all products:");
-         List<Product> productsCriteria = productBean.getProductsCriteriaAPI();
+        resp.getWriter().println("\nUsing Criteria API for all products:");
+        List<Product> productsCriteria = productBean.getProductsCriteriaAPI();
 
-         for (Product product : productsCriteria) {
+        for (Product product : productsCriteria) {
             resp.getWriter().println(product.getName());
-         }
+        }
     }
 }

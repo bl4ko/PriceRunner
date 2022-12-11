@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
 import si.fri.prpo.skupina7.Category;
+import si.fri.prpo.skupina7.annotations.NoteCalls;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -32,13 +33,18 @@ public class CategoryBean {
         log.info("Destroying an instance of CategoryBean[" + this.id + "]");
     }
 
-    public List<Category> getCategorys() {
+    @NoteCalls
+    public List<Category> getCategories() {
         List<Category> categories = em.createNamedQuery("Category.getAll").getResultList();
         return categories;
     }
 
+    public int getCategoryCount() {
+        return em.createNamedQuery("Category.getAll").getResultList().size();
+    }
 
     @Transactional
+    @NoteCalls
     public Category createCategory(Category category) {
         if (category != null) {
             em.persist(category);
@@ -47,11 +53,13 @@ public class CategoryBean {
     }
 
 
+    @NoteCalls
     public Category getCategory(Integer id) {
         return em.find(Category.class, id);
     }
 
     @Transactional
+    @NoteCalls
     public Category updateCategory(Integer categoryId, Category category) {
         Category p = em.find(Category.class, categoryId);
         category.setId(p.getId());
@@ -60,6 +68,7 @@ public class CategoryBean {
     }
 
     @Transactional
+    @NoteCalls
     public boolean deleteCategory(Integer id) {
         Category category = em.find(Category.class, id);
         if (category != null) {

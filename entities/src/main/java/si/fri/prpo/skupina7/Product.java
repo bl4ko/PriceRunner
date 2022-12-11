@@ -9,7 +9,9 @@ import java.util.List;
                 @NamedQuery(name = "Product.getAll", query = "SELECT p FROM product p"),
                 @NamedQuery(name = "Product.getById", query = "SELECT p FROM product p WHERE p.id = ?1"),
                 @NamedQuery(name = "Product.deleteById", query = "DELETE FROM product p WHERE p.id = ?1"),
-                @NamedQuery(name = "Product.deleteAll", query = "DELETE FROM product")
+                @NamedQuery(name = "Product.deleteAll", query = "DELETE FROM product"),
+                @NamedQuery(name = "Product.getByCategoryId", query = "SELECT p FROM product p WHERE p.category.id = ?1"),
+                @NamedQuery(name = "Product.getByStoreId", query = "SELECT p FROM product p WHERE ?1 MEMBER OF p.stores")
         })
 public class Product {
     @Id

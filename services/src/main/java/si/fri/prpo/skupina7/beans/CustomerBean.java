@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
 import si.fri.prpo.skupina7.Customer;
+import si.fri.prpo.skupina7.annotations.NoteCalls;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -32,13 +33,18 @@ public class CustomerBean {
         log.info("Destroying an instance of CustomerBean[" + this.id + "]");
     }
 
+    @NoteCalls
     public List<Customer> getCustomers() {
         List<Customer> Customers = em.createNamedQuery("Customer.getAll").getResultList();
         return Customers;
     }
 
+    public int getCustomerCount() {
+        return em.createNamedQuery("Customer.getAll").getResultList().size();
+    }
 
     @Transactional
+    @NoteCalls
     public Customer createCustomer(Customer Customer) {
         if (Customer != null) {
             em.persist(Customer);
@@ -47,11 +53,13 @@ public class CustomerBean {
     }
 
 
+    @NoteCalls
     public Customer getCustomer(Integer id) {
         return em.find(Customer.class, id);
     }
 
     @Transactional
+    @NoteCalls
     public Customer updateCustomer(Integer CustomerId, Customer Customer) {
         Customer p = em.find(Customer.class, CustomerId);
         Customer.setId(p.getId());
@@ -60,6 +68,7 @@ public class CustomerBean {
     }
 
     @Transactional
+    @NoteCalls
     public boolean deleteCustomer(Integer id) {
         Customer Customer = em.find(Customer.class, id);
         if (Customer != null) {
