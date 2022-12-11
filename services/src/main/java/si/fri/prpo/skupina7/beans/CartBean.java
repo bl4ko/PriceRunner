@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
 import si.fri.prpo.skupina7.Cart;
+import si.fri.prpo.skupina7.Product;
 import si.fri.prpo.skupina7.annotations.NoteCalls;
 
 import javax.annotation.PostConstruct;
@@ -73,6 +74,45 @@ public class CartBean {
         Cart cart = em.find(Cart.class, id);
         if (cart != null) {
             em.remove(cart);
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    @NoteCalls
+    public boolean addProductToCart(Integer cartId, Integer productId) {
+        Product product = em.find(Product.class, productId);
+        Cart cart = em.find(Cart.class, cartId);
+        // Check if cart and product exist
+        if (cart != null && product != null) {
+            // Check if product is already in cart
+            if (cart.getProducts().contains(product)) {
+                return false;
+            }
+            // Add product to cart
+            cart.getProducts().add(product);
+            em.merge(cart);
+            return true;
+        }
+        return false;
+    }
+
+    // Remove product from cart
+    @Transactional
+    @NoteCalls
+    public boolean removeProductFromCart(Integer cartId, Integer productId) {
+        Product product = em.find(Product.class, productId);
+        Cart cart = em.find(Cart.class, cartId);
+        // Check if cart and product exist
+        if (cart != null && product != null) {
+            // Check if product is in cart
+            if (!cart.getProducts().contains(product)) {
+                return false;
+            }
+            // Remove product from cart
+            cart.getProducts().remove(product);
+            em.merge(cart);
             return true;
         }
         return false;

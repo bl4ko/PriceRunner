@@ -8,10 +8,7 @@ import java.util.logging.Logger;
 @ApplicationScoped
 public class NoteCallsBean {
     private static final Logger log = Logger.getLogger(NoteCallsBean.class.getName());
-    private final int callCount = 0;
-
     private final Map<String, Integer> method2count = new HashMap<>();
-
 
     public void noteCall(String method) {
         if (method2count.containsKey(method)) {
@@ -19,8 +16,7 @@ public class NoteCallsBean {
         } else {
             method2count.put(method, 1);
         }
-
-
+        
         log.info(method + ": Number of invocations: " + method2count.get(method));
     }
 }

@@ -91,4 +91,15 @@ public class ProductBean {
         }
         return false;
     }
+    
+    @NoteCalls
+    public List<Product> getProductsByCategoryId(Integer categoryId) {
+        return (List<Product>) em.createNamedQuery("Product.getByCategoryId").setParameter(1, categoryId).getResultList();
+    }
+
+    // Get all products that are in a store with a given id
+    @NoteCalls
+    public List<Product> getProductsByStoreId(Integer storeId) {
+        return (List<Product>) em.createNamedQuery("Product.getByStoreId").setParameter(1, storeId).getResultList();
+    }
 }

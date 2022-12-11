@@ -137,4 +137,45 @@ public class CartSource {
         return Response.ok().build();
     }
 
+    // Add product to cart
+    @Operation(description = "Adds product by id to cart with given id", summary = "Add product by id to cart with given id")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Product added to cart"
+            ),
+            @APIResponse(
+                    responseCode = "404",
+                    description = "Cart or product not found"
+            )})
+    @PUT
+    @Path("{id}/add/{productId}")
+    public Response addProductToCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id, @Parameter(description = "Product ID", required = true) @PathParam("productId") Integer productId) {
+
+        if (cartBean.addProductToCart(id, productId)) {
+            return Response.ok().build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    // Remove product from cart
+    @Operation(description = "Removes product by id from cart with given id", summary = "Remove product by id from cart with given id")
+    @APIResponses({
+            @APIResponse(
+                    responseCode = "200",
+                    description = "Product removed from cart"
+            ),
+            @APIResponse(
+                    responseCode = "404",
+                    description = "Cart or product not found"
+            )})
+    @PUT
+    @Path("{id}/remove/{productId}")
+    public Response removeProductFromCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id, @Parameter(description = "Product ID", required = true) @PathParam("productId") Integer productId) {
+
+        if (cartBean.removeProductFromCart(id, productId)) {
+            return Response.ok().build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
+    }
 }
