@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
 import si.fri.prpo.skupina7.Product;
+import si.fri.prpo.skupina7.annotations.NoteCalls;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -34,10 +35,16 @@ public class ProductBean {
         log.info("Destroying an instance of ProductBean[" + this.id + "]");
     }
 
+    @NoteCalls
     public List<Product> getProducts() {
         List<Product> products = em.createNamedQuery("Product.getAll").getResultList();
         return products;
     }
+
+    public int getProductCount() {
+        return em.createNamedQuery("Product.getAll").getResultList().size();
+    }
+
 
     public List<Product> getProductsCriteriaAPI() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -49,6 +56,7 @@ public class ProductBean {
 
 
     @Transactional
+    @NoteCalls
     public Product createProduct(Product product) {
         if (product != null) {
             em.persist(product);
@@ -57,12 +65,14 @@ public class ProductBean {
     }
 
 
+    @NoteCalls
     public Product getProduct(Integer id) {
         return em.find(Product.class, id);
     }
 
 
     @Transactional
+    @NoteCalls
     public Product updateProduct(Integer productId, Product product) {
         Product p = em.find(Product.class, productId);
         product.setId(p.getId());
@@ -72,6 +82,7 @@ public class ProductBean {
 
 
     @Transactional
+    @NoteCalls
     public boolean deleteProduct(Integer id) {
         Product product = em.find(Product.class, id);
         if (product != null) {
@@ -79,5 +90,16 @@ public class ProductBean {
             return true;
         }
         return false;
+    }
+    
+    @NoteCalls
+    public List<Product> getProductsByCategoryId(Integer categoryId) {
+        return (List<Product>) em.createNamedQuery("Product.getByCategoryId").setParameter(1, categoryId).getResultList();
+    }
+
+    // Get all products that are in a store with a given id
+    @NoteCalls
+    public List<Product> getProductsByStoreId(Integer storeId) {
+        return (List<Product>) em.createNamedQuery("Product.getByStoreId").setParameter(1, storeId).getResultList();
     }
 }
