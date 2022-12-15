@@ -10,7 +10,9 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import si.fri.prpo.skupina7.Cart;
+import si.fri.prpo.skupina7.api.v1.mappers.InvalidCartOperationExceptionMapper;
 import si.fri.prpo.skupina7.beans.CartBean;
+import si.fri.prpo.skupina7.exceptions.InvalidCartOperationException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -106,7 +108,13 @@ public class CartSource {
             )})
     @POST
     public Response createCart(Cart cart) {
-        cartBean.createCart(cart);
+
+        try {
+            cartBean.createCart(cart);
+        } catch (InvalidCartOperationException e) {
+            InvalidCartOperationExceptionMapper mapper = new InvalidCartOperationExceptionMapper();
+            return mapper.toResponse(e);
+        }
 
         return Response
                 .created(uriInfo.getAbsolutePathBuilder().path(cart.getId().toString()).build())
@@ -154,9 +162,10 @@ public class CartSource {
 
         try {
             cartBean.addProductToCart(id, productId);
-            return Response.ok().build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+//            return Response.ok().build();
+        } catch (InvalidCartOperationException e) {
+            InvalidCartOperationExceptionMapper mapper = new InvalidCartOperationExceptionMapper();
+            return mapper.toResponse(e);
         }
     }
 
