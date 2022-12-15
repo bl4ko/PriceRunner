@@ -1,5 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.skupina7.Product;
 import si.fri.prpo.skupina7.annotations.NoteCalls;
 
@@ -39,6 +41,11 @@ public class ProductBean {
     public List<Product> getProducts() {
         List<Product> products = em.createNamedQuery("Product.getAll").getResultList();
         return products;
+    }
+
+    @NoteCalls
+    public List<Product> getProducts(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Product.class, query);
     }
 
     public int getProductCount() {
@@ -91,7 +98,7 @@ public class ProductBean {
         }
         return false;
     }
-    
+
     @NoteCalls
     public List<Product> getProductsByCategoryId(Integer categoryId) {
         return (List<Product>) em.createNamedQuery("Product.getByCategoryId").setParameter(1, categoryId).getResultList();

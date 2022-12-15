@@ -1,5 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.skupina7.Category;
 import si.fri.prpo.skupina7.annotations.NoteCalls;
 
@@ -37,6 +39,11 @@ public class CategoryBean {
     public List<Category> getCategories() {
         List<Category> categories = em.createNamedQuery("Category.getAll").getResultList();
         return categories;
+    }
+
+    @NoteCalls
+    public List<Category> getCategories(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Category.class, query);
     }
 
     public int getCategoryCount() {

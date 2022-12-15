@@ -1,5 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.skupina7.Store;
 import si.fri.prpo.skupina7.annotations.NoteCalls;
 
@@ -37,6 +39,11 @@ public class StoreBean {
     public List<Store> getStores() {
         List<Store> stores = em.createNamedQuery("Store.getAll").getResultList();
         return stores;
+    }
+
+    @NoteCalls
+    public List<Store> getStores(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Store.class, query);
     }
 
     public int getStoreCount() {

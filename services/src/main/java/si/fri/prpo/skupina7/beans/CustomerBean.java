@@ -1,5 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.skupina7.Customer;
 import si.fri.prpo.skupina7.annotations.NoteCalls;
 
@@ -37,6 +39,11 @@ public class CustomerBean {
     public List<Customer> getCustomers() {
         List<Customer> Customers = em.createNamedQuery("Customer.getAll").getResultList();
         return Customers;
+    }
+
+    @NoteCalls
+    public List<Customer> getCustomers(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Customer.class, query);
     }
 
     public int getCustomerCount() {
