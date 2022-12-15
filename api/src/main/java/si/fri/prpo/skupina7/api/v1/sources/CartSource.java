@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina7.api.v1.sources;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -33,21 +34,21 @@ public class CartSource {
     @Inject
     private CartBean cartBean;
 
-    @Operation(description = "Returns all carts", summary = "List of all carts")
+    @Operation(description = "Returns list of carts", summary = "List of carts")
     @APIResponses({
-            @APIResponse(
-                    responseCode = "200",
-                    description = "Cart",
+            @APIResponse(responseCode = "200",
+                    description = "List of carts",
                     content = @Content(schema = @Schema(implementation = Cart.class, type = SchemaType.ARRAY)),
-                    headers = {@Header(name = "X-Total-Count", description = "Total count of carts")}
+                    headers = {@Header(name = "X-Total-Count", description = "Number of returned carts")}
             )})
     @GET
     public Response getCarts() {
-        int cartCount = cartBean.getCartCount();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        Long cartsCount = cartBean.getCartsCount(query);
 
         return Response
-                .ok(cartBean.getCarts())
-                .header("X-Total-Count", cartCount)
+                .ok(cartBean.getCarts(query))
+                .header("X-Total-Count", cartsCount)
                 .build();
     }
 

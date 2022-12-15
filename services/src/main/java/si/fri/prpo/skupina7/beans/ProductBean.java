@@ -36,20 +36,15 @@ public class ProductBean {
     public void destroy() {
         log.info("Destroying an instance of ProductBean[" + this.id + "]");
     }
-
-    @NoteCalls
-    public List<Product> getProducts() {
-        List<Product> products = em.createNamedQuery("Product.getAll").getResultList();
-        return products;
-    }
+    
 
     @NoteCalls
     public List<Product> getProducts(QueryParameters query) {
         return JPAUtils.queryEntities(em, Product.class, query);
     }
 
-    public int getProductCount() {
-        return em.createNamedQuery("Product.getAll").getResultList().size();
+    public long getProductsCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Product.class, query);
     }
 
 

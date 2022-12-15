@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina7.api.v1.sources;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -42,21 +43,21 @@ public class ProductSource {
     @Inject
     private StoreBean storeBean;
 
-    @Operation(description = "Returns all products", summary = "List of all products")
+    @Operation(description = "Returns list of products", summary = "List of products")
     @APIResponses({
-            @APIResponse(
-                    responseCode = "200",
-                    description = "Product",
+            @APIResponse(responseCode = "200",
+                    description = "List of products",
                     content = @Content(schema = @Schema(implementation = Product.class, type = SchemaType.ARRAY)),
-                    headers = {@Header(name = "X-Total-Count", description = "Total count of products")}
+                    headers = {@Header(name = "X-Total-Count", description = "Number of returned products")}
             )})
     @GET
     public Response getProducts() {
-        int productCount = productBean.getProductCount();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        Long productsCount = productBean.getProductsCount(query);
 
         return Response
-                .ok(productBean.getProducts())
-                .header("X-Total-Count", productCount)
+                .ok(productBean.getProducts(query))
+                .header("X-Total-Count", productsCount)
                 .build();
     }
 

@@ -34,20 +34,15 @@ public class CategoryBean {
     public void destroy() {
         log.info("Destroying an instance of CategoryBean[" + this.id + "]");
     }
-
-    @NoteCalls
-    public List<Category> getCategories() {
-        List<Category> categories = em.createNamedQuery("Category.getAll").getResultList();
-        return categories;
-    }
+    
 
     @NoteCalls
     public List<Category> getCategories(QueryParameters query) {
         return JPAUtils.queryEntities(em, Category.class, query);
     }
 
-    public int getCategoryCount() {
-        return em.createNamedQuery("Category.getAll").getResultList().size();
+    public long getCategoriesCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Category.class, query);
     }
 
     @Transactional

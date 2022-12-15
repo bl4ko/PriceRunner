@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina7.servlets;
 
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.fri.prpo.skupina7.Product;
 import si.fri.prpo.skupina7.beans.ProductBean;
 
@@ -22,7 +23,10 @@ public class JPAServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.getWriter().println("Hello from JPA Servlet, using named query for all products:");
-        List<Product> products = productBean.getProducts();
+        QueryParameters query = new QueryParameters();
+        query.setLimit(10);
+        query.setOffset(0);
+        List<Product> products = productBean.getProducts(query);
 
         // Display products
         for (Product product : products) {

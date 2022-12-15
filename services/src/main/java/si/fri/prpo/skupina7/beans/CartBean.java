@@ -37,18 +37,12 @@ public class CartBean {
     }
 
     @NoteCalls
-    public List<Cart> getCarts() {
-        List<Cart> Carts = em.createNamedQuery("Cart.getAll").getResultList();
-        return Carts;
-    }
-
-    @NoteCalls
     public List<Cart> getCarts(QueryParameters query) {
         return JPAUtils.queryEntities(em, Cart.class, query);
     }
 
-    public int getCartCount() {
-        return em.createNamedQuery("Cart.getAll").getResultList().size();
+    public long getCartsCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Cart.class, query);
     }
 
     @Transactional

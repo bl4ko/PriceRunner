@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina7.api.v1.sources;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -33,22 +34,20 @@ public class CustomerSource {
     @Inject
     private CustomerBean customerBean;
 
-    @Operation(description = "Returns all customers", summary = "List of all customers")
+    @Operation(description = "Returns list of customers", summary = "List of customers")
     @APIResponses({
-            @APIResponse(
-                    responseCode = "200",
-                    description = "Customers",
+            @APIResponse(responseCode = "200",
+                    description = "List of customers",
                     content = @Content(schema = @Schema(implementation = Customer.class, type = SchemaType.ARRAY)),
-                    headers = {@Header(name = "X-Total-Count", description = "Total count of customers")}
+                    headers = {@Header(name = "X-Total-Count", description = "Number of returned customers")}
             )})
     @GET
     public Response getCustomers() {
-
-        // QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
-        int customersCount = customerBean.getCustomerCount();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        Long customersCount = customerBean.getCustomersCount(query);
 
         return Response
-                .ok(customerBean.getCustomers())
+                .ok(customerBean.getCustomers(query))
                 .header("X-Total-Count", customersCount)
                 .build();
     }

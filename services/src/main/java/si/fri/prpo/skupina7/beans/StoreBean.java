@@ -34,20 +34,15 @@ public class StoreBean {
     public void destroy() {
         log.info("Destroying an instance of StoreBean[" + this.id + "]");
     }
-
-    @NoteCalls
-    public List<Store> getStores() {
-        List<Store> stores = em.createNamedQuery("Store.getAll").getResultList();
-        return stores;
-    }
+    
 
     @NoteCalls
     public List<Store> getStores(QueryParameters query) {
         return JPAUtils.queryEntities(em, Store.class, query);
     }
 
-    public int getStoreCount() {
-        return em.createNamedQuery("Store.getAll").getResultList().size();
+    public long getStoresCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Store.class, query);
     }
 
 
