@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina7.api.v1.sources;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -33,23 +34,21 @@ public class CategorySource {
     @Inject
     private CategoryBean categoryBean;
 
-    @Operation(description = "Returns all categories", summary = "List of all categories")
+    @Operation(description = "Returns list of categories", summary = "List of categories")
     @APIResponses({
-            @APIResponse(
-                    responseCode = "200",
-                    description = "Categories",
+            @APIResponse(responseCode = "200",
+                    description = "List of categories",
                     content = @Content(schema = @Schema(implementation = Category.class, type = SchemaType.ARRAY)),
-                    headers = {@Header(name = "X-Total-Count", description = "Total count of categories")}
+                    headers = {@Header(name = "X-Total-Count", description = "Number of returned categories")}
             )})
     @GET
     public Response getCategories() {
-
-        // QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
-        int categoriesCount = categoryBean.getCategoryCount();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        Long cartsCount = categoryBean.getCategoriesCount(query);
 
         return Response
-                .ok(categoryBean.getCategories())
-                .header("X-Total-Count", categoriesCount)
+                .ok(categoryBean.getCategories(query))
+                .header("X-Total-Count", cartsCount)
                 .build();
     }
 

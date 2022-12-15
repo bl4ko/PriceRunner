@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina7.api.v1.sources;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -22,7 +23,7 @@ import javax.ws.rs.core.UriInfo;
 
 @ApplicationScoped
 @Tag(name = "Store", description = "Store operations")
-@Path("store")
+@Path("stores")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class StoreSource {
@@ -32,21 +33,21 @@ public class StoreSource {
     @Inject
     private StoreBean storeBean;
 
-    @Operation(description = "Returns all stores", summary = "List of all stores")
+    @Operation(description = "Returns list of stores", summary = "List of stores")
     @APIResponses({
-            @APIResponse(
-                    responseCode = "200",
-                    description = "Stores",
+            @APIResponse(responseCode = "200",
+                    description = "List of stores",
                     content = @Content(schema = @Schema(implementation = Store.class, type = SchemaType.ARRAY)),
-                    headers = {@Header(name = "X-Total-Count", description = "Total count of stores")}
+                    headers = {@Header(name = "X-Total-Count", description = "Number of returned stores")}
             )})
     @GET
     public Response getStores() {
-        int storesCount = storeBean.getStoreCount();
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        Long productsCount = storeBean.getStoresCount(query);
 
         return Response
-                .ok(storeBean.getStores())
-                .header("X-Total-Count", storesCount)
+                .ok(storeBean.getStores(query))
+                .header("X-Total-Count", productsCount)
                 .build();
     }
 

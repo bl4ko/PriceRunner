@@ -1,5 +1,7 @@
 package si.fri.prpo.skupina7.beans;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.skupina7.Cart;
 import si.fri.prpo.skupina7.Product;
 import si.fri.prpo.skupina7.annotations.NoteCalls;
@@ -35,13 +37,12 @@ public class CartBean {
     }
 
     @NoteCalls
-    public List<Cart> getCarts() {
-        List<Cart> Carts = em.createNamedQuery("Cart.getAll").getResultList();
-        return Carts;
+    public List<Cart> getCarts(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Cart.class, query);
     }
 
-    public int getCartCount() {
-        return em.createNamedQuery("Cart.getAll").getResultList().size();
+    public long getCartsCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Cart.class, query);
     }
 
     @Transactional
