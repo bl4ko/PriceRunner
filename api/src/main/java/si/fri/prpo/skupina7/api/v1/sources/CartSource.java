@@ -152,10 +152,12 @@ public class CartSource {
     @Path("{id}/add/{productId}")
     public Response addProductToCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id, @Parameter(description = "Product ID", required = true) @PathParam("productId") Integer productId) {
 
-        if (cartBean.addProductToCart(id, productId)) {
+        try {
+            cartBean.addProductToCart(id, productId);
             return Response.ok().build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     // Remove product from cart

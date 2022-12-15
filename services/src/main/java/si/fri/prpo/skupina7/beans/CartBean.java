@@ -3,6 +3,7 @@ package si.fri.prpo.skupina7.beans;
 import si.fri.prpo.skupina7.Cart;
 import si.fri.prpo.skupina7.Product;
 import si.fri.prpo.skupina7.annotations.NoteCalls;
+import si.fri.prpo.skupina7.exceptions.InvalidProductToCartOperationException;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -81,7 +82,7 @@ public class CartBean {
 
     @Transactional
     @NoteCalls
-    public boolean addProductToCart(Integer cartId, Integer productId) {
+    public boolean addProductToCart(Integer cartId, Integer productId) throws InvalidProductToCartOperationException {
         Product product = em.find(Product.class, productId);
         Cart cart = em.find(Cart.class, cartId);
         // Check if cart and product exist
@@ -95,7 +96,7 @@ public class CartBean {
             em.merge(cart);
             return true;
         }
-        return false;
+        throw new InvalidProductToCartOperationException("Product or cart does not exist");
     }
 
     // Remove product from cart
