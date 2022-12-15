@@ -10,7 +10,7 @@ public class InvalidCartOperationExceptionMapper implements ExceptionMapper<Inva
     public Response toResponse(InvalidCartOperationException exception) {
         return Response
                 .status(Response.Status.BAD_REQUEST)
-                .entity("{\"napaka\":\"" + exception.getMessage() + "\"}").build();
+                .entity("{\"error\":\"" + exception.getMessage() + "\"}").build();
     }
 }
 }
