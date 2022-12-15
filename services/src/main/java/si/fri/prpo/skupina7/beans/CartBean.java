@@ -59,7 +59,10 @@ public class CartBean {
 
 
     @NoteCalls
-    public Cart getCart(Integer id) {
+    public Cart getCart(Integer id) throws InvalidCartOperationException {
+        if (id == null) {
+            throw new InvalidCartOperationException("Id is null");
+        }
         return em.find(Cart.class, id);
     }
 
