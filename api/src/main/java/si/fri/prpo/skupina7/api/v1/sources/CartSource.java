@@ -89,9 +89,8 @@ public class CartSource {
     @DELETE
     @Path("{id}")
     public Response deleteCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id) {
-        Cart cart = new Cart();
         try {
-            cart = cartBean.getCart(id);
+            cartBean.getCart(id);
             cartBean.deleteCart(id);
             return Response.ok().build();
         } catch (InvalidCartOperationException e) {
@@ -168,7 +167,7 @@ public class CartSource {
 
         try {
             cartBean.addProductToCart(id, productId);
-//            return Response.ok().build();
+            return Response.ok().build();
         } catch (InvalidCartOperationException e) {
             InvalidCartOperationExceptionMapper mapper = new InvalidCartOperationExceptionMapper();
             return mapper.toResponse(e);
@@ -190,9 +189,13 @@ public class CartSource {
     @Path("{id}/remove/{productId}")
     public Response removeProductFromCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id, @Parameter(description = "Product ID", required = true) @PathParam("productId") Integer productId) {
 
-        if (cartBean.removeProductFromCart(id, productId)) {
+        try {
+            cartBean.removeProductFromCart(id, productId);
             return Response.ok().build();
+        } catch (InvalidCartOperationException e) {
+            InvalidCartOperationExceptionMapper mapper = new InvalidCartOperationExceptionMapper();
+            return mapper.toResponse(e);
         }
-        return Response.status(Response.Status.NOT_FOUND).build();
+
     }
 }

@@ -13,4 +13,3 @@ public class InvalidCartOperationExceptionMapper implements ExceptionMapper<Inva
                 .entity("{\"error\":\"" + exception.getMessage() + "\"}").build();
     }
 }
-}

@@ -77,13 +77,13 @@ public class CartBean {
 
     @Transactional
     @NoteCalls
-    public boolean deleteCart(Integer id) {
+    public boolean deleteCart(Integer id) throws InvalidCartOperationException {
         Cart cart = em.find(Cart.class, id);
         if (cart != null) {
             em.remove(cart);
             return true;
         }
-        return false;
+        throw new InvalidCartOperationException("Cart with id " + id + " does not exist");
     }
 
     @Transactional
@@ -108,7 +108,7 @@ public class CartBean {
     // Remove product from cart
     @Transactional
     @NoteCalls
-    public boolean removeProductFromCart(Integer cartId, Integer productId) {
+    public boolean removeProductFromCart(Integer cartId, Integer productId) throws InvalidCartOperationException {
         Product product = em.find(Product.class, productId);
         Cart cart = em.find(Cart.class, cartId);
         // Check if cart and product exist
@@ -122,6 +122,6 @@ public class CartBean {
             em.merge(cart);
             return true;
         }
-        return false;
+        throw new InvalidCartOperationException("Product or cart does not exist");
     }
 }
