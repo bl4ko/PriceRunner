@@ -3,6 +3,7 @@ package si.fri.prpo.skupina7.beans;
 import si.fri.prpo.skupina7.Cart;
 import si.fri.prpo.skupina7.Product;
 import si.fri.prpo.skupina7.annotations.NoteCalls;
+import si.fri.prpo.skupina7.exceptions.InvalidCartOperationException;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -46,16 +47,22 @@ public class CartBean {
 
     @Transactional
     @NoteCalls
-    public Cart createCart(Cart cart) {
-        if (cart != null) {
-            em.persist(cart);
+    public Cart createCart(Cart cart) throws InvalidCartOperationException {
+
+        if (cart == null) {
+            throw new InvalidCartOperationException("Cart is null");
         }
+        em.persist(cart);
+
         return cart;
     }
 
 
     @NoteCalls
-    public Cart getCart(Integer id) {
+    public Cart getCart(Integer id) throws InvalidCartOperationException {
+        if (id == null) {
+            throw new InvalidCartOperationException("Id is null");
+        }
         return em.find(Cart.class, id);
     }
 
@@ -70,18 +77,18 @@ public class CartBean {
 
     @Transactional
     @NoteCalls
-    public boolean deleteCart(Integer id) {
+    public boolean deleteCart(Integer id) throws InvalidCartOperationException {
         Cart cart = em.find(Cart.class, id);
         if (cart != null) {
             em.remove(cart);
             return true;
         }
-        return false;
+        throw new InvalidCartOperationException("Cart with id " + id + " does not exist");
     }
 
     @Transactional
     @NoteCalls
-    public boolean addProductToCart(Integer cartId, Integer productId) {
+    public boolean addProductToCart(Integer cartId, Integer productId) throws InvalidCartOperationException {
         Product product = em.find(Product.class, productId);
         Cart cart = em.find(Cart.class, cartId);
         // Check if cart and product exist
@@ -95,13 +102,13 @@ public class CartBean {
             em.merge(cart);
             return true;
         }
-        return false;
+        throw new InvalidCartOperationException("Product or cart does not exist");
     }
 
     // Remove product from cart
     @Transactional
     @NoteCalls
-    public boolean removeProductFromCart(Integer cartId, Integer productId) {
+    public boolean removeProductFromCart(Integer cartId, Integer productId) throws InvalidCartOperationException {
         Product product = em.find(Product.class, productId);
         Cart cart = em.find(Cart.class, cartId);
         // Check if cart and product exist
@@ -115,6 +122,6 @@ public class CartBean {
             em.merge(cart);
             return true;
         }
-        return false;
+        throw new InvalidCartOperationException("Product or cart does not exist");
     }
 }

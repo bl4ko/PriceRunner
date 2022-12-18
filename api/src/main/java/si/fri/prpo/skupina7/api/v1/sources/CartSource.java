@@ -10,7 +10,9 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import si.fri.prpo.skupina7.Cart;
+import si.fri.prpo.skupina7.api.v1.mappers.InvalidCartOperationExceptionMapper;
 import si.fri.prpo.skupina7.beans.CartBean;
+import si.fri.prpo.skupina7.exceptions.InvalidCartOperationException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -65,13 +67,13 @@ public class CartSource {
     @GET
     @Path("{id}")
     public Response getCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id) {
-        Cart cart = cartBean.getCart(id);
-
-        if (cart == null) {
+        Cart cart = new Cart();
+        try {
+            cart = cartBean.getCart(id);
+            return Response.ok(cart).build();
+        } catch (InvalidCartOperationException e) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-
-        return Response.ok(cart).build();
     }
 
     @Operation(description = "Deletes cart with given id", summary = "Delete cart with given id")
@@ -87,15 +89,13 @@ public class CartSource {
     @DELETE
     @Path("{id}")
     public Response deleteCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id) {
-        Cart cart = cartBean.getCart(id);
-
-        if (cart == null) {
+        try {
+            cartBean.getCart(id);
+            cartBean.deleteCart(id);
+            return Response.ok().build();
+        } catch (InvalidCartOperationException e) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-
-        cartBean.deleteCart(id);
-
-        return Response.ok().build();
     }
 
     @Operation(description = "Creates new cart", summary = "Create new cart")
@@ -106,7 +106,13 @@ public class CartSource {
             )})
     @POST
     public Response createCart(Cart cart) {
-        cartBean.createCart(cart);
+
+        try {
+            cartBean.createCart(cart);
+        } catch (InvalidCartOperationException e) {
+            InvalidCartOperationExceptionMapper mapper = new InvalidCartOperationExceptionMapper();
+            return mapper.toResponse(e);
+        }
 
         return Response
                 .created(uriInfo.getAbsolutePathBuilder().path(cart.getId().toString()).build())
@@ -126,7 +132,14 @@ public class CartSource {
     @PUT
     @Path("{id}")
     public Response updateCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id, Cart cart) {
-        Cart existingCart = cartBean.getCart(id);
+        Cart existingCart = new Cart();
+
+        try {
+            existingCart = cartBean.getCart(id);
+        } catch (InvalidCartOperationException e) {
+            InvalidCartOperationExceptionMapper mapper = new InvalidCartOperationExceptionMapper();
+            return mapper.toResponse(e);
+        }
 
         if (existingCart == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -152,10 +165,13 @@ public class CartSource {
     @Path("{id}/add/{productId}")
     public Response addProductToCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id, @Parameter(description = "Product ID", required = true) @PathParam("productId") Integer productId) {
 
-        if (cartBean.addProductToCart(id, productId)) {
+        try {
+            cartBean.addProductToCart(id, productId);
             return Response.ok().build();
+        } catch (InvalidCartOperationException e) {
+            InvalidCartOperationExceptionMapper mapper = new InvalidCartOperationExceptionMapper();
+            return mapper.toResponse(e);
         }
-        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     // Remove product from cart
@@ -173,9 +189,13 @@ public class CartSource {
     @Path("{id}/remove/{productId}")
     public Response removeProductFromCart(@Parameter(description = "Cart ID", required = true) @PathParam("id") Integer id, @Parameter(description = "Product ID", required = true) @PathParam("productId") Integer productId) {
 
-        if (cartBean.removeProductFromCart(id, productId)) {
+        try {
+            cartBean.removeProductFromCart(id, productId);
             return Response.ok().build();
+        } catch (InvalidCartOperationException e) {
+            InvalidCartOperationExceptionMapper mapper = new InvalidCartOperationExceptionMapper();
+            return mapper.toResponse(e);
         }
-        return Response.status(Response.Status.NOT_FOUND).build();
+
     }
 }
