@@ -1,6 +1,5 @@
 package si.fri.prpo.skupina7;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 @Entity(name = "customer")
@@ -22,7 +21,6 @@ public class Customer {
     private String username;
     private String email;
 
-    @JsonbTransient
     @OneToOne()
     @JoinColumn(name = "cart_id")
     private Cart cart;

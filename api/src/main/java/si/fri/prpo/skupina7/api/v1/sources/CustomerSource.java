@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina7.api.v1.sources;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -25,6 +26,7 @@ import javax.ws.rs.core.UriInfo;
 @Path("customers")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@CrossOrigin(supportedMethods = "GET, POST, DELETE, PUT, OPTIONS")
 public class CustomerSource {
 
     @Context

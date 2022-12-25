@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina7;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class Cart {
     private String createdTime;
 
     // Adds additional intermediate table
+    @JsonbTransient
     @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
     private Customer customer;
 
