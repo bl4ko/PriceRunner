@@ -48,6 +48,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.kumuluz.ee.cors</groupId>
+            <artifactId>kumuluzee-cors</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>si.fri.prpo.skupina7</groupId>
             <artifactId>services</artifactId>
         </dependency>

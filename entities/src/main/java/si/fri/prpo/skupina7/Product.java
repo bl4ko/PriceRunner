@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina7;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,14 +23,17 @@ public class Product {
 
     private String description;
 
-    private Integer price;
-
     // Add column for category
     // Each category has one or more products
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @JsonbTransient
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    private List<ProductStorePrice> productStorePrices;
+
+    @JsonbTransient
     @ManyToMany
     @JoinColumn(name = "cart_id")
     private List<Cart> carts;
@@ -64,14 +68,6 @@ public class Product {
         this.description = description;
     }
 
-    public Integer getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
     public Category getCategory() {
         return this.category;
     }
@@ -79,4 +75,30 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public List<Cart> getCarts() {
+        return this.carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
+
+    public List<Store> getStores() {
+        return this.stores;
+    }
+
+    public void setStores(List<Store> stores) {
+        this.stores = stores;
+    }
+
+    public List<ProductStorePrice> getProductStorePrices() {
+        return this.productStorePrices;
+    }
+
+    public void setProductStorePrices(List<ProductStorePrice> productStorePrices) {
+        this.productStorePrices = productStorePrices;
+    }
+
+
 }
