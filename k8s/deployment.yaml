@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: price-runner-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: price-runner
+  template:
+    metadata:
+      labels:
+        app: price-runner
+    spec:
+      containers:
+        - image: bl4ko/price-runner:latest
+          name: price-runner
+          envFrom:
+            - secretRef:
+                name: price-runner-secrets
+          ports:
+            - containerPort: 8080
+              name: server
+              protocol: TCP
