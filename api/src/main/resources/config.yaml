@@ -9,6 +9,14 @@ kumuluzee:
     enabled: true
     servlet:
       mapping: /openapi
+    servers: http://localhost:8080,https://prpo.bl4ko.com
+    dev:
+      scan-libraries:
+        - entities
+        - services
     ui:
       enabled: true
       mapping: /openapi/ui
+      server-auto-config:
+        enabled: true
+        original-uri-check: true
