@@ -1,13 +1,16 @@
 package si.fri.prpo.skupina7.dtos;
 
 import si.fri.prpo.skupina7.Category;
+import si.fri.prpo.skupina7.ProductStorePrice;
+
+import java.util.List;
 
 public class ProductDto {
     private Integer productId;
     private String name;
     private String description;
-    private Integer price;
     private Category category;
+    private List<ProductStorePrice> productStorePrices;
 
     public Integer getProductId() {
         return productId;
@@ -33,13 +36,6 @@ public class ProductDto {
         this.description = description;
     }
 
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
 
     public Category getCategory() {
         return category;
@@ -47,5 +43,13 @@ public class ProductDto {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<ProductStorePrice> getProductStorePrices() {
+        return productStorePrices;
+    }
+
+    public void setProductStorePrices(List<ProductStorePrice> productStorePrices) {
+        this.productStorePrices = productStorePrices;
     }
 }

@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina7;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -21,8 +22,14 @@ public class Store {
     private String name;
 
     // Adds additional intermediate table
+    @JsonbTransient
     @ManyToMany(mappedBy = "stores", cascade = CascadeType.ALL)
     private List<Product> products;
+
+    @JsonbTransient
+    @OneToMany(mappedBy = "store", fetch = FetchType.EAGER)
+    private List<ProductStorePrice> productStorePrice;
+
 
     public Integer getId() {
         return this.id;
@@ -38,6 +45,22 @@ public class Store {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Product> getProducts() {
+        return this.products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public List<ProductStorePrice> getProductStorePrice() {
+        return this.productStorePrice;
+    }
+
+    public void setProductStorePrice(List<ProductStorePrice> productStorePrice) {
+        this.productStorePrice = productStorePrice;
     }
 
 }

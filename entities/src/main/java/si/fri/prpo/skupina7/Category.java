@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina7;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -24,7 +25,8 @@ public class Category {
     private String description;
 
     // Adds additional intermediate table
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonbTransient
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private List<Product> products;
 
     public Integer getId() {
@@ -49,6 +51,14 @@ public class Category {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Product> getProducts() {
+        return this.products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
 }

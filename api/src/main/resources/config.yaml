@@ -1,15 +1,22 @@
 kumuluzee:
   datasources:
     - jndi-name: jdbc/priceRunner
-      connection-url: jdbc:postgresql://localhost:5432/priceRunner
-      username: postgres
-      password: postgres
+      connection-url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/priceRunner}
+      username: ${DATABASE_USERNAME:postgres}
+      password: ${DATABASE_PASSWORD:postgres}
       max-pool-size: 20
-    # https://github.com/kumuluz/kumuluzee-openapi#accessing-api-specification
   openapi-mp:
     enabled: true
     servlet:
       mapping: /openapi
+    servers: http://localhost:8080,https://prpo.bl4ko.com
+    dev:
+      scan-libraries:
+        - entities
+        - services
     ui:
       enabled: true
       mapping: /openapi/ui
+      server-auto-config:
+        enabled: true
+        original-uri-check: true

@@ -91,7 +91,7 @@ public class ProductBean {
         }
         return false;
     }
-    
+
     @NoteCalls
     public List<Product> getProductsByCategoryId(Integer categoryId) {
         return (List<Product>) em.createNamedQuery("Product.getByCategoryId").setParameter(1, categoryId).getResultList();

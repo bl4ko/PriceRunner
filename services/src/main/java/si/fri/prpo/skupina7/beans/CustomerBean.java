@@ -63,6 +63,7 @@ public class CustomerBean {
     public Customer updateCustomer(Integer CustomerId, Customer Customer) {
         Customer p = em.find(Customer.class, CustomerId);
         Customer.setId(p.getId());
+        Customer.setCart(p.getCart());
         em.merge(Customer);
         return Customer;
     }

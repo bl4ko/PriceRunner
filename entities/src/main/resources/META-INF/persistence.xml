@@ -8,6 +8,7 @@
         <class>si.fri.prpo.skupina7.Store</class>
         <class>si.fri.prpo.skupina7.Cart</class>
         <class>si.fri.prpo.skupina7.Customer</class>
+        <class>si.fri.prpo.skupina7.ProductStorePrice</class>
 
 
         <properties>
