@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina7.api.v1.sources;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.headers.Header;
@@ -24,6 +25,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.List;
 
 @ApplicationScoped
 @Tag(name = "Product", description = "Product operations")
@@ -44,6 +46,10 @@ public class ProductSource {
     @Inject
     private StoreBean storeBean;
 
+
+    //    Example pagination links
+    //  http://localhost:8080/v1/products?limit=1&offset=1
+    // http://localhost:8080/v1/products?order=id DESC
     @Operation(description = "Returns all products", summary = "List of all products")
     @APIResponses({
             @APIResponse(
@@ -56,8 +62,16 @@ public class ProductSource {
     public Response getProducts() {
         int productCount = productBean.getProductCount();
 
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+
+        List<Product> products = productBean.getProducts(query);
+
+        if (products == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
         return Response
-                .ok(productBean.getProducts())
+                .ok(products)
                 .header("X-Total-Count", productCount)
                 .build();
     }
