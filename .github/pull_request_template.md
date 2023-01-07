@@ -6,8 +6,4 @@ This PR references the following issue:
 
 # Changes
 
-## :heavy_check_mark: In Scope
 <!-- Describe the changes this PR addresses -->
-
-## :x: Not In Scope
-<!-- Describe the changes that were left out in this PR -->
