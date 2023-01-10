@@ -13,8 +13,8 @@ import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class CatFactsClient {
-    private final Logger log = Logger.getLogger(CatFactsClient.class.getName());
+public class JokeClient {
+    private final Logger log = Logger.getLogger(JokeClient.class.getName());
 
     @Inject
     private ExternalApiProperties externalApiProperties;
@@ -23,17 +23,17 @@ public class CatFactsClient {
 
     @PostConstruct
     private void init() {
-        log.info("Initializing CatFactsClient");
+        log.info("Initializing JokeClient");
         client = javax.ws.rs.client.ClientBuilder.newClient();
     }
 
     @PreDestroy
     private void destroy() {
-        log.info("Destroying CatFactsClient");
+        log.info("Destroying JokeClient");
         client.close();
     }
 
-    public String getCatFact() {
+    public JsonObject getJoke() {
         Response response = null;
 
         try {
@@ -46,9 +46,8 @@ public class CatFactsClient {
         }
 
         JsonObject jsonObject = response.readEntity(JsonObject.class);
-        String catFact = jsonObject.getString("fact");
 
-        return catFact;
+        return jsonObject;
 
 
     }

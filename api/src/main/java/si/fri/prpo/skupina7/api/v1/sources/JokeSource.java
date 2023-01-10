@@ -5,7 +5,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-import si.fri.prpo.skupina7.beans.CatFactsBean;
+import si.fri.prpo.skupina7.beans.JokeBean;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -18,35 +18,37 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 @ApplicationScoped
-@Tag(name = "Cat Facts", description = "Facts of Cats")
-@Path("cat-facts")
+@Tag(name = "Jokes", description = "Random Jokes")
+@Path("jokes")
 @Produces(MediaType.APPLICATION_JSON)
 @CrossOrigin(supportedMethods = "GET, POST, DELETE, PUT, OPTIONS")
-public class CatFactsSource {
+public class JokeSource {
 
     @Context
     protected UriInfo uriInfo;
 
     @Inject
-    private CatFactsBean catFactsBean;
+    private JokeBean jokeBean;
 
-    @Operation(description = "Returns a random cat fact", summary = "Random cat fact")
+    @Operation(description = "Returns a random joke", summary = "Random joke")
     @APIResponses({
             @APIResponse(
                     responseCode = "200",
-                    description = "Cat Fact"
+                    description = "Joke"
             )
             , @APIResponse(
             responseCode = "404",
-            description = "Cat Fact not found"
+            description = "Joke not found"
     )})
     @GET
-    public Response getCatFact() {
+    public Response getJoke() {
 
-        String catFact = catFactsBean.getCatFact();
-
-//        Convert to JSON
-        String jsonObj = "{\"fact\": \"" + catFact + "\"}";
-        return Response.ok(jsonObj).build();
+        String joke = jokeBean.getJoke();
+        // Add line breaks to joke
+        joke = joke.replace("\n", "\\n");
+        joke = joke.replaceAll("\"", "'");
+        //        Convert to JSON
+        String jsonObject = "{\"joke\": \"" + joke + "\"}";
+        return Response.ok(jsonObject).build();
     }
 }
