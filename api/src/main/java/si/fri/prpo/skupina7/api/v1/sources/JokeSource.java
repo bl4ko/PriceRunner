@@ -21,7 +21,7 @@ import javax.ws.rs.core.UriInfo;
 @Tag(name = "Jokes", description = "Random Jokes")
 @Path("jokes")
 @Produces(MediaType.APPLICATION_JSON)
-@CrossOrigin(supportedMethods = "GET, POST, DELETE, PUT, OPTIONS")
+@CrossOrigin(supportedMethods = "GET")
 public class JokeSource {
 
     @Context
@@ -44,10 +44,10 @@ public class JokeSource {
     public Response getJoke() {
 
         String joke = jokeBean.getJoke();
-        // Add line breaks to joke
+
         joke = joke.replace("\n", "\\n");
         joke = joke.replaceAll("\"", "'");
-        //        Convert to JSON
+
         String jsonObject = "{\"joke\": \"" + joke + "\"}";
         return Response.ok(jsonObject).build();
     }
