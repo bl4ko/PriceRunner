@@ -21,7 +21,7 @@ import javax.ws.rs.core.UriInfo;
 @Tag(name = "Jokes", description = "Random Jokes")
 @Path("jokes")
 @Produces(MediaType.APPLICATION_JSON)
-@CrossOrigin(supportedMethods = "GET")
+@CrossOrigin(supportedMethods = "GET, OPTIONS", allowOrigin = "*")
 public class JokeSource {
 
     @Context
